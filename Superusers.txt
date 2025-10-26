@@ -1,0 +1,3 @@
+name: admin1
+Email: admin1@email.local
+password: password4admin
