@@ -1,6 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Anggota(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
     nama = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     tanggal_bergabung = models.DateField(auto_now_add=True)
