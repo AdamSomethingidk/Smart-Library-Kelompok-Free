@@ -1,18 +1,34 @@
 import { NavLink } from "react-router-dom";
 import { BookOpen, Users, Home, Settings, ShoppingBasket } from "lucide-react";
 
-const menu = [
-  { name: "Dashboard", icon: <Home size={18} />, path: "/" },
-  { name: "Books", icon: <BookOpen size={18} />, path: "/catalog" },
-  { name: "Members", icon: <Users size={18} />, path: "/members" },
-  { name: "Transaction", icon: <ShoppingBasket size ={18} />, path: "/transaction" },
-  { name: "Settings", icon: <Settings size={18} />, path: "/settings" },
-];
-
 export default function Sidebar() {
+  const isAdmin = localStorage.getItem("is_admin") === "true";
+
+  const adminMenu = [
+    { name: "Dashboard", icon: <Home size={18} />, path: "/dashboard" },
+    { name: "Manage Books", icon: <BookOpen size={18} />, path: "/admin_catalog" },
+    { name: "Members", icon: <Users size={18} />, path: "/members" },
+    { name: "Transactions", icon: <ShoppingBasket size={18} />, path: "/transaction" },
+    { name: "Settings", icon: <Settings size={18} />, path: "/settings" },
+  ];
+
+  const memberMenu = [
+    { name: "Dashboard", icon: <Home size={18} />, path: "/member_dashboard" },
+    { name: "Books", icon: <BookOpen size={18} />, path: "/catalog" },
+    { name: "My Transactions", icon: <ShoppingBasket size={18} />, path: "/member_transaction" },
+    { name: "Settings", icon: <Settings size={18} />, path: "/settings" },
+  ];
+
+  const menu = isAdmin ? adminMenu : memberMenu;
+
   return (
     <aside className="w-64 bg-white border-r shadow-sm p-4 flex flex-col">
-      <h1 className="text-2xl font-bold text-blue-600 mb-8">SmartLibrary</h1>
+      <h1 className="text-2xl font-bold text-blue-600 mb-3">Smart Library</h1>
+
+      <span className="text-sm mb-6 px-3 py-1 rounded-full bg-gray-100 text-gray-600 w-fit">
+        {isAdmin ? "Administrator" : "Member"}
+      </span>
+
       <nav className="space-y-2">
         {menu.map((item) => (
           <NavLink
